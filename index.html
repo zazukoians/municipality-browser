@@ -21,6 +21,8 @@ and open the template in the editor.
             
             $(function () {
                 $("#button").on("click", function() {
+                    $("#text").hide()
+                    $("#button").hide()
                     $("#renderArea").attr("resource", $("#text").val())
                     LD2h.expand().then(function() {
                         console.log("all done");
