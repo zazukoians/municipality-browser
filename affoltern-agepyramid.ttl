@@ -1,0 +1,101 @@
+@prefix ns0:	<https://gont.ch/> .
+<http://classifications.data.admin.ch/municipality/1>	ns0:populationSegment	_:b11010 ,
+		_:b11011 ,
+		_:b11008 ,
+		_:b11009 ,
+		_:b11014 ,
+		_:b11015 ,
+		_:b11012 ,
+		_:b11013 ,
+		_:b10998 ,
+		_:b10999 ,
+		_:b10996 ,
+		_:b10997 ,
+		_:b11002 ,
+		_:b11003 ,
+		_:b11000 ,
+		_:b11001 ,
+		_:b11006 ,
+		_:b11007 ,
+		_:b11004 ,
+		_:b11005 .
+_:b10996	ns0:fromAge	95 ;
+	ns0:toAge	99 ;
+	ns0:malePopulation	0 ;
+	ns0:femalePopulation	256 .
+_:b10997	ns0:fromAge	90 ;
+	ns0:toAge	94 ;
+	ns0:malePopulation	256 ;
+	ns0:femalePopulation	768 .
+_:b10998	ns0:fromAge	85 ;
+	ns0:toAge	89 ;
+	ns0:malePopulation	2048 ;
+	ns0:femalePopulation	3072 .
+_:b10999	ns0:fromAge	80 ;
+	ns0:toAge	84 ;
+	ns0:malePopulation	3072 ;
+	ns0:femalePopulation	5632 .
+_:b11000	ns0:fromAge	75 ;
+	ns0:toAge	79 ;
+	ns0:malePopulation	7680 ;
+	ns0:femalePopulation	7680 .
+_:b11001	ns0:fromAge	70 ;
+	ns0:toAge	74 ;
+	ns0:malePopulation	9984 ;
+	ns0:femalePopulation	7936 .
+_:b11002	ns0:fromAge	65 ;
+	ns0:toAge	69 ;
+	ns0:malePopulation	11264 ;
+	ns0:femalePopulation	14336 .
+_:b11003	ns0:fromAge	60 ;
+	ns0:toAge	64 ;
+	ns0:malePopulation	17664 ;
+	ns0:femalePopulation	12032 .
+_:b11004	ns0:fromAge	55 ;
+	ns0:toAge	59 ;
+	ns0:malePopulation	17408 ;
+	ns0:femalePopulation	19712 .
+_:b11005	ns0:fromAge	50 ;
+	ns0:toAge	54 ;
+	ns0:malePopulation	24064 ;
+	ns0:femalePopulation	24320 .
+_:b11006	ns0:fromAge	45 ;
+	ns0:toAge	49 ;
+	ns0:malePopulation	24320 ;
+	ns0:femalePopulation	26112 .
+_:b11007	ns0:fromAge	40 ;
+	ns0:toAge	44 ;
+	ns0:malePopulation	22528 ;
+	ns0:femalePopulation	20224 .
+_:b11008	ns0:fromAge	35 ;
+	ns0:toAge	39 ;
+	ns0:malePopulation	15104 ;
+	ns0:femalePopulation	18432 .
+_:b11009	ns0:fromAge	30 ;
+	ns0:toAge	34 ;
+	ns0:malePopulation	10240 ;
+	ns0:femalePopulation	12544 .
+_:b11010	ns0:fromAge	25 ;
+	ns0:toAge	29 ;
+	ns0:malePopulation	11008 ;
+	ns0:femalePopulation	11008 .
+_:b11011	ns0:fromAge	20 ;
+	ns0:toAge	24 ;
+	ns0:malePopulation	13568 ;
+	ns0:femalePopulation	9984 .
+_:b11012	ns0:fromAge	15 ;
+	ns0:toAge	19 ;
+	ns0:malePopulation	15104 ;
+	ns0:femalePopulation	13824 .
+_:b11013	ns0:fromAge	10 ;
+	ns0:toAge	14 ;
+	ns0:malePopulation	13824 ;
+	ns0:femalePopulation	13824 .
+_:b11014	ns0:fromAge	5 ;
+	ns0:toAge	9 ;
+	ns0:malePopulation	11520 ;
+	ns0:femalePopulation	12544 .
+_:b11015	ns0:fromAge	0 ;
+	ns0:toAge	4 ;
+	ns0:malePopulation	15360 ;
+	ns0:femalePopulation	9728 .
