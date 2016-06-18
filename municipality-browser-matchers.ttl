@@ -82,3 +82,23 @@ class="fetch">Municipality should appear here</span>
     r2h:before <page>;
     r2h:before <headline>;
 ].
+
+# the following are about population statitistics
+
+<headline> r2h:before [ a r2h:Matcher ;
+    r2h:triplePattern [      
+        r2h:subject r2h:this;
+        r2h:predicate gont:populationStatistics
+    ];
+    r2h:template [ 
+        r2h:mustache '''
+<b>Statistical data:</b><br/>
+<div resource="{{.}}"
+             graph="{{gont:populationStatistics}}"
+                class="fetch">
+                Age pyramid should appear here
+        </div>
+{{{:continue}}}'''
+    ];
+    r2h:before r2hp:specific;
+].

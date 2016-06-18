@@ -13,10 +13,11 @@ and open the template in the editor.
         <script src="//cdn.rawgit.com/rdf2h/rdf2h/v0.3.0/dist/rdf2h.js"></script>
         <script src="//cdn.rawgit.com/retog/rdf-parser-n3-browser/v0.3.0b/dist/n3-parser.js"></script>
         <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-        <script src="//cdn.rawgit.com/rdf2h/ld2h/v0.4.0/dist/ld2h.js"></script>
+        <script src="//cdn.rawgit.com/rdf2h/ld2h/v0.4.1/dist/ld2h.js"></script>
         <link rel="matchers" href="//cdn.rawgit.com/rdf2h/rdf2h.github.io/v0.0.1/2015/rdf2h-points.ttl" type="text/turtle"/>
-        <link rel="matchers" href="http://data.admin.ch/rdf2h/matchers.ttl" type="text/turtle" />
+        <link rel="matchers" href="https://cdn.rawgit.com/zazukoians/trifid-ld/v0.1.1/data/public/rdf2h/matchers.ttl" type="text/turtle" />
         <link rel="matchers" href="municipality-browser-matchers.ttl" type="text/turtle" />
+        <link rel="matchers" href="agepyramid-matchers.ttl" type="text/turtle" />
         <script type="text/javascript">
             
             $(function () {
@@ -33,8 +34,9 @@ and open the template in the editor.
 
     </head>
     <body>
-        Enter municipality id: <input id="text" size="90" type="text" value="http://classifications.data.admin.ch/municipality/371" /><br/>
+        Enter municipality id: <input id="text" size="90" type="text" value="http://classifications.data.admin.ch/municipality/1" /><br/>
         <button id="button">Load</button>
         <div id="renderArea" resource="" class="fetch">Municipality will appear here</div>
+        
     </body>
 </html>

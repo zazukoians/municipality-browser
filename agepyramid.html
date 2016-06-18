@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Pooulation pyramid</title>
+        
+        <script src="//cdn.rawgit.com/rdf2h/rdf2h/v0.3.0/dist/rdf-ext.js"></script>
+        <script src="//cdn.rawgit.com/rdf2h/rdf2h/v0.3.0/dist/rdf2h.js"></script>
+        <script src="//cdn.rawgit.com/retog/rdf-parser-n3-browser/v0.3.0b/dist/n3-parser.js"></script>
+        <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="//cdn.rawgit.com/rdf2h/ld2h/v0.4.1/dist/ld2h.js"></script>
+        <link rel="matchers" href="//cdn.rawgit.com/rdf2h/rdf2h.github.io/v0.0.1/2015/rdf2h-points.ttl" type="text/turtle"/>
+        <link rel="matchers" href="https://cdn.rawgit.com/zazukoians/trifid-ld/v0.1.1/data/public/rdf2h/matchers.ttl" type="text/turtle" />
+        <link rel="matchers" href="municipality-browser-matchers.ttl" type="text/turtle" />
+        <link rel="matchers" href="agepyramid-matchers.ttl" type="text/turtle" />
+        
+        <style>
+
+svg {
+  border: 1px solid #ccc;
+}
+
+.axis line,
+.axis path {
+  shape-rendering: crispEdges;
+  fill: transparent;
+  stroke: #555;
+}
+.axis text {
+  font-size: 11px;
+}
+
+
+.bar {
+  fill-opacity: 0.5;
+}
+.bar.left {
+  fill: steelblue;
+}
+.bar.right {
+  fill: firebrick;
+}
+
+</style>
+        
+ <script type="text/javascript">
+            
+            $(function () {
+                
+                    LD2h.expand().then(function() {
+                        console.log("all done");
+                        displayPyramid();
+                    });
+            });
+        </script>
+    </head>
+    <body>
+        <h2>Age pyramid</h2>
+        <p>Right now hard coded to a municipality</p>
+        <div resource="http://classifications.data.admin.ch/municipality/1"
+             graph="http://lindas-data.ch/sparql?default-graph-uri=&query=PREFIX+gont%3A+%3chttps%3A%2F%2Fgont.ch%2F%3e%0D%0A%0D%0ACONSTRUCT+%7B%0D%0A++%3chttp%3A%2F%2Fclassifications.data.admin.ch%2Fmunicipality%2F1%3e+gont%3ApopulationSegment+[%0D%0A++++gont%3AfromAge+%3FfromAge+%3B%0D%0A++++gont%3AtoAge+%3FtoAge+%3B%0D%0A++++gont%3AmalePopulation+%3FMale_Inhabitants+%3B%0D%0A++++gont%3AfemalePopulation+%3FFemale_Inhabitants+%0D%0A++]%0D%0A%7D%0D%0A%0D%0AWHERE%0D%0A%7B%0D%0A++%7B%0D%0A++++SELECT+%0D%0A++++++(%3Fageinterval+AS+%3FfromAge)%0D%0A++++++(%3Fageinterval%2B4+AS+%3FtoAge)%0D%0A++++++(SUM(IF(%3Fsex%3D%3chttp%3A%2F%2Fdata.admin.ch%2Fbfs%2Fcode%2F1.0%2FCL_SEX%2F2%3e%2C%3Fnumber%2C0))+AS+%3FFemale_Inhabitants)%0D%0A++++++(SUM(IF(%3Fsex%3D%3chttp%3A%2F%2Fdata.admin.ch%2Fbfs%2Fcode%2F1.0%2FCL_SEX%2F1%3e%2C%3Fnumber%2C0))+AS+%3FMale_Inhabitants)%0D%0A++++WHERE%0D%0A++++%7B%0D%0A++++++++%3Fs+%3chttp%3A%2F%2Fdata.admin.ch%2Fbfs%2Fproperty%2FNB_PERSON%3e+%3Fnumber%3B%0D%0A++++++++%3chttp%3A%2F%2Fdata.admin.ch%2Fbfs%2Fproperty%2FPOPULATIONTYPE%3e+%3Fptype%3B%0D%0A++++++++%3chttp%3A%2F%2Fdata.admin.ch%2Fbfs%2Fproperty%2FSEX%3e+%3Fsex%3B%0D%0A++++++++%3chttp%3A%2F%2Fdata.admin.ch%2Fbfs%2Fproperty%2FREPORTINGMUNICIPALITYID%3e+%3Fremuniuri%3B%0D%0A++++++++%3chttp%3A%2F%2Fdata.admin.ch%2Fbfs%2Fproperty%2FAGE%3e+%3Fage.%0D%0A%0D%0A++++++++%3Fremuniuri+%3chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23notation%3e+%221%22.%0D%0A++++++++%3Fage+%3chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23notation%3e+%3Fagenumber.%0D%0A%0D%0A++++++++%3Fptype+%3chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23notation%3e+%3Fpnumber.%0D%0A++++++++FILTER+((xsd%3Aint(%3Fpnumber))+%3c%3D+2)%0D%0A%0D%0A++++++%7D%0D%0A++++++GROUP+BY+((FLOOR((xsd%3Aint(%3Fagenumber))%2F5)*5)+AS+%3Fageinterval)%0D%0A++++++ORDER+BY+DESC(xsd%3Aint(%3Fageinterval))%0D%0A++%7D%0D%0A%7D"
+                class="fetch">
+                Age pyramid should appear here
+        </div>
+        
+        <script src="//d3js.org/d3.v3.min.js"></script>
+<script>
+function displayPyramid() {
+    // SET UP DIMENSIONS
+var w = 500,
+    h = 300;
+    
+// margin.middle is distance from center line to each y-axis
+var margin = {
+  top: 20,
+  right: 20,
+  bottom: 24,
+  left: 20,
+  middle: 28
+};
+    
+// the width of each side of the chart
+var regionWidth = w/2 - margin.middle;
+
+// these are the x-coordinates of the y-axes
+var pointA = regionWidth,
+    pointB = w - regionWidth;
+
+// some contrived data
+var exampleData = [
+  {group: '30-39', male: 18, female: 18},
+  {group: '0-9', male: 10, female: 12},
+  {group: '10-19', male: 14, female: 15},
+  {group: '20-29', male: 15, female: 18},
+  {group: '40-49', male: 21, female: 22},
+  {group: '50-59', male: 19, female: 24},
+  {group: '60-69', male: 15, female: 14},
+  {group: '70-79', male: 8, female: 10},
+  {group: '80-89', male: 4, female: 5},
+  {group: '90-99', male: 2, female: 3},
+  {group: '100-109', male: 1, female: 1},
+];
+
+var exampleData = window.populationData;
+
+// GET THE TOTAL POPULATION SIZE AND CREATE A FUNCTION FOR RETURNING THE PERCENTAGE
+var totalPopulation = d3.sum(exampleData, function(d) { return d.male + d.female; }),
+    percentage = function(d) { return d / totalPopulation; };
+  
+  
+// CREATE SVG
+var svg = d3.select('body').append('svg')
+  .attr('width', margin.left + w + margin.right)
+  .attr('height', margin.top + h + margin.bottom)
+  // ADD A GROUP FOR THE SPACE WITHIN THE MARGINS
+  .append('g')
+    .attr('transform', translation(margin.left, margin.top));
+
+// find the maximum data value on either side
+//  since this will be shared by both of the x-axes
+var maxValue = Math.max(
+  d3.max(exampleData, function(d) { return percentage(d.male); }),
+  d3.max(exampleData, function(d) { return percentage(d.female); })
+);
+
+// SET UP SCALES
+  
+// the xScale goes from 0 to the width of a region
+//  it will be reversed for the left x-axis
+var xScale = d3.scale.linear()
+  .domain([0, maxValue])
+  .range([0, regionWidth])
+  .nice();
+
+var xScaleLeft = d3.scale.linear()
+  .domain([0, maxValue])
+  .range([regionWidth, 0]);
+
+var xScaleRight = d3.scale.linear()
+  .domain([0, maxValue])
+  .range([0, regionWidth]);
+
+var yScale = d3.scale.ordinal()
+  .domain(exampleData.map(function(d) { return d.group; }))
+  .rangeRoundBands([h,0], 0.1);
+
+
+// SET UP AXES
+var yAxisLeft = d3.svg.axis()
+  .scale(yScale)
+  .orient('right')
+  .tickSize(4,0)
+  .tickPadding(margin.middle-4);
+
+var yAxisRight = d3.svg.axis()
+  .scale(yScale)
+  .orient('left')
+  .tickSize(4,0)
+  .tickFormat('');
+
+var xAxisRight = d3.svg.axis()
+  .scale(xScale)
+  .orient('bottom')
+  .tickFormat(d3.format('%'));
+
+var xAxisLeft = d3.svg.axis()
+  // REVERSE THE X-AXIS SCALE ON THE LEFT SIDE BY REVERSING THE RANGE
+  .scale(xScale.copy().range([pointA, 0]))
+  .orient('bottom')
+  .tickFormat(d3.format('%'));
+
+// MAKE GROUPS FOR EACH SIDE OF CHART
+// scale(-1,1) is used to reverse the left side so the bars grow left instead of right
+var leftBarGroup = svg.append('g')
+  .attr('transform', translation(pointA, 0) + 'scale(-1,1)');
+var rightBarGroup = svg.append('g')
+  .attr('transform', translation(pointB, 0));
+
+// DRAW AXES
+svg.append('g')
+  .attr('class', 'axis y left')
+  .attr('transform', translation(pointA, 0))
+  .call(yAxisLeft)
+  .selectAll('text')
+  .style('text-anchor', 'middle');
+
+svg.append('g')
+  .attr('class', 'axis y right')
+  .attr('transform', translation(pointB, 0))
+  .call(yAxisRight);
+
+svg.append('g')
+  .attr('class', 'axis x left')
+  .attr('transform', translation(0, h))
+  .call(xAxisLeft);
+
+svg.append('g')
+  .attr('class', 'axis x right')
+  .attr('transform', translation(pointB, h))
+  .call(xAxisRight);
+
+// DRAW BARS
+leftBarGroup.selectAll('.bar.left')
+  .data(exampleData)
+  .enter().append('rect')
+    .attr('class', 'bar left')
+    .attr('x', 0)
+    .attr('y', function(d) { return yScale(d.group); })
+    .attr('width', function(d) { return xScale(percentage(d.male)); })
+    .attr('height', yScale.rangeBand());
+
+rightBarGroup.selectAll('.bar.right')
+  .data(exampleData)
+  .enter().append('rect')
+    .attr('class', 'bar right')
+    .attr('x', 0)
+    .attr('y', function(d) { return yScale(d.group); })
+    .attr('width', function(d) { return xScale(percentage(d.female)); })
+    .attr('height', yScale.rangeBand());
+
+
+// so sick of string concatenation for translations
+function translation(x,y) {
+  return 'translate(' + x + ',' + y + ')';
+}
+ };
+
+</script>
+    </body>
+</html>
