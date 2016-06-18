@@ -45,7 +45,6 @@ window.populationData.push({
     female: {{gont:femalePopulation}}
 });
 </script>
-<div>segmment {{gont:fromAge}} -- {{gont:toAge}}</div>
 '''
     ];
     r2h:before r2hp:specific;
