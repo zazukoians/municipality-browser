@@ -13,14 +13,19 @@
         r2h:predicate gont:populationSegment
     ];
     r2h:template [ 
-        r2h:mustache '''
-<script>
-window.populationData = new Array();
-</script>
-{{#gont:populationSegment}}
-{{{:continue}}}
-{{/gont:populationSegment}}
-'''
+        r2h:javaScript '''function(n) {
+            window.populationData = new Array();
+            var result = "";
+            var segments = n.graphNode.out(RDF2h.resolveCurie("gont:populationSegment")).toArray();
+            segments.sort(function(a,b) {
+               var fa = RDF2h.resolveCurie("gont:fromAge");
+               return +a.out(fa) > +b.out(fa);
+            });
+            segments.forEach(function(s) {
+                result += n.rdf2h.render(n.graph, s.nodes()[0], n.context);
+            });
+            return result;
+        }'''
     ];
     r2h:before <segment>;
 ].
@@ -34,8 +39,8 @@ window.populationData = new Array();
         r2h:mustache '''
 <script>
 
-window.populationData.push({group: '{{
-    gont:fromAge}}-{{gont:toAge}}', 
+window.populationData.push({
+    group: '{{gont:fromAge}} - {{gont:toAge}}', 
     male: {{gont:malePopulation}} , 
     female: {{gont:femalePopulation}}
 });
