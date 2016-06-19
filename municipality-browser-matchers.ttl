@@ -93,11 +93,13 @@ class="fetch">Municipality should appear here</span>
     r2h:template [ 
         r2h:mustache '''
 <b>Statistical data:</b><br/>
+<div>
 <div resource="{{.}}"
              graph="{{gont:populationStatistics}}"
                 class="fetch">
                 Age pyramid should appear here
         </div>
+</div>
 {{{:continue}}}'''
     ];
     r2h:before r2hp:specific;
