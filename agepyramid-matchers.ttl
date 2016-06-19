@@ -36,25 +36,9 @@
         var pointA = regionWidth,
             pointB = w - regionWidth;
 
-        // some contrived data
-        var exampleData = [
-          {group: '30-39', male: 18, female: 18},
-          {group: '0-9', male: 10, female: 12},
-          {group: '10-19', male: 14, female: 15},
-          {group: '20-29', male: 15, female: 18},
-          {group: '40-49', male: 21, female: 22},
-          {group: '50-59', male: 19, female: 24},
-          {group: '60-69', male: 15, female: 14},
-          {group: '70-79', male: 8, female: 10},
-          {group: '80-89', male: 4, female: 5},
-          {group: '90-99', male: 2, female: 3},
-          {group: '100-109', male: 1, female: 1},
-        ];
-
-        var exampleData = window.populationData;
 
         // GET THE TOTAL POPULATION SIZE AND CREATE A FUNCTION FOR RETURNING THE PERCENTAGE
-        var totalPopulation = d3.sum(exampleData, function(d) { return d.male + d.female; }),
+        var totalPopulation = d3.sum(window.populationData, function(d) { return d.male + d.female; }),
             percentage = function(d) { return d / totalPopulation; };
 
 
@@ -69,8 +53,8 @@
         // find the maximum data value on either side
         //  since this will be shared by both of the x-axes
         var maxValue = Math.max(
-          d3.max(exampleData, function(d) { return percentage(d.male); }),
-          d3.max(exampleData, function(d) { return percentage(d.female); })
+          d3.max(window.populationData, function(d) { return percentage(d.male); }),
+          d3.max(window.populationData, function(d) { return percentage(d.female); })
         );
 
         // SET UP SCALES
@@ -91,7 +75,7 @@
           .range([0, regionWidth]);
 
         var yScale = d3.scale.ordinal()
-          .domain(exampleData.map(function(d) { return d.group; }))
+          .domain(window.populationData.map(function(d) { return d.group; }))
           .rangeRoundBands([h,0], 0.1);
 
 
@@ -151,7 +135,7 @@
 
         // DRAW BARS
         leftBarGroup.selectAll('.bar.left')
-          .data(exampleData)
+          .data(window.populationData)
           .enter().append('rect')
             .attr('class', 'bar left')
             .attr('x', 0)
@@ -160,7 +144,7 @@
             .attr('height', yScale.rangeBand());
 
         rightBarGroup.selectAll('.bar.right')
-          .data(exampleData)
+          .data(window.populationData)
           .enter().append('rect')
             .attr('class', 'bar right')
             .attr('x', 0)
