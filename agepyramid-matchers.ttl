@@ -183,7 +183,7 @@ displayPyramid();
             var segments = n.graphNode.out(RDF2h.resolveCurie("gont:populationSegment")).toArray();
             segments.sort(function(a,b) {
                var fa = RDF2h.resolveCurie("gont:fromAge");
-               return +a.out(fa) > +b.out(fa);
+               return +a.out(fa) - +b.out(fa);
             });
             segments.forEach(function(s) {
                 result += n.rdf2h.render(n.graph, s.nodes()[0], n.context);
