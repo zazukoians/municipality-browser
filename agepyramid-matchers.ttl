@@ -100,12 +100,14 @@
                         var xAxisRight = d3.svg.axis()
                           .scale(xScale)
                           .orient('bottom')
+                          .ticks(5)
                           .tickFormat(d3.format('%'));
 
                         var xAxisLeft = d3.svg.axis()
                           // REVERSE THE X-AXIS SCALE ON THE LEFT SIDE BY REVERSING THE RANGE
                           .scale(xScale.copy().range([pointA, 0]))
                           .orient('bottom')
+                          .ticks(5)
                           .tickFormat(d3.format('%'));
 
                         // MAKE GROUPS FOR EACH SIDE OF CHART
