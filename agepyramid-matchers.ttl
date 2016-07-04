@@ -6,6 +6,25 @@
 @prefix gont: <https://gont.ch/> .
 @prefix mode: <http://zazukoians.github.org/rdf2h/modes#> .
 
+[ a r2h:Matcher ;
+    r2h:triplePattern [      
+        r2h:subject r2h:this;
+        r2h:predicate gont:populationStatistics
+    ];
+    r2h:template [ 
+        r2h:mustache '''
+<b>Statistical data:</b><br/>
+<div>
+<div resource="{{.}}"
+             graph="{{gont:populationStatistics}}"
+                class="fetch">
+                Age pyramid should appear here
+        </div>
+</div>
+{{{:continue}}}'''
+    ];
+    r2h:before r2hp:specific;
+].
 
 <pyramid> a r2h:Matcher ;
     r2h:triplePattern [      
