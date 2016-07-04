@@ -6,7 +6,7 @@
 @prefix gont: <https://gont.ch/> .
 @prefix mode: <http://zazukoians.github.org/rdf2h/modes#> .
 
-[ a r2h:Matcher ;
+r2hp:specific r2h:before [ a r2h:Matcher ;
     r2h:triplePattern [      
         r2h:subject r2h:this;
         r2h:predicate gont:populationStatistics
@@ -23,7 +23,7 @@
 </div>
 {{{:continue}}}'''
     ];
-    r2h:before r2hp:specific;
+    r2h:before r2hp:average;
 ].
 
 <pyramid> a r2h:Matcher ;
